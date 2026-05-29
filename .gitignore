@@ -1,6 +1,50 @@
+# ==========================================
+# 1. LILYPOND GENERATED OUTPUTS
+# ==========================================
+# Ignore the final scores and audio files generated during compilation
 *.pdf
 *.ps
 *.midi
 *.mid
 *.log
+
+# Ignore LilyPond log, performance tracking, and temporary layout files
+*.log
+*.count
+*.preview.png
+*.preview.pdf
+
+# ==========================================
+# 2. VSCODIUM / VS CODE EDITING ENVIRONMENT
+# ==========================================
+# Ignore local workspace configurations, extensions, and state histories
+.vscode/
+.history/
+*.code-workspace
+
+# ==========================================
+# 3. OPERATING SYSTEM / FILE SYSTEM FILES
+# ==========================================
+# Windows thumbnail and folder settings cache
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS folder attributes and indexing files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux/Unix backup files
 *~
+.#*
+
+# ==========================================
+# 4. EXCEPTIONS (ALWAYS KEEP)
+# ==========================================
+# Ensure your markdown instructions, readme, and source files are never ignored
+!.gitignore
+!README.md
+!AI-INSTRUCTIONS.md
+!*.ly
