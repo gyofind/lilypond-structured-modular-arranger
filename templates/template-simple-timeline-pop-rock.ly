@@ -254,13 +254,13 @@ Outro_melody          = \relative c'' { g1 ~ | g1 }
 
 Intro_lyrics             = \lyricmode { \globalLyrics Let's go }
 VerseMainA_lyricsOne     = \lyricmode { \globalLyrics First verse op -- tion here }
-VerseMainB_lyrics        = \lyricmode { \globalLyrics Shared part li -- nes }
-VerseEndOne_lyricsOne    = \lyricmode { \globalLyrics end one }
-VerseEndAltTwo_lyricsOne = \lyricmode { \globalLyrics end two }
-Chorus_lyricsOne         = \lyricmode { \globalLyrics Si -- ng the cho -- rus lo -- ud __ }
-Outro_lyricsOne          = \lyricmode { \globalLyrics Out __ }
-
 VerseMainA_lyricsTwo     = \lyricmode { \globalLyrics Se -- cond verse op -- tion here }
+VerseMainB_lyrics        = \lyricmode { \globalLyrics Shared part li -- nes }
+VerseEndAltOne_lyrics    = \lyricmode { \globalLyrics end one }
+VerseEndAltTwo_lyrics    = \lyricmode { \globalLyrics end two }
+Chorus_lyrics            = \lyricmode { \globalLyrics Si -- ng the cho -- rus lo -- ud __ }
+Outro_lyrics             = \lyricmode { \globalLyrics Out __ }
+
 
 % --- PIANO ---
 Intro_pianoRight      = \relative c'' { <g h d>1 2. 4 }
@@ -492,10 +492,10 @@ lyricsLineOne = \lyricmode {
   \VerseMainA_lyricsOne
   \set stanza = "" 
   \VerseMainB_lyrics
-  \VerseEndOne_lyricsOne
-  \VerseEndAltTwo_lyricsOne
-  \Chorus_lyricsOne
-  \Outro_lyricsOne
+  \VerseEndAltOne_lyrics
+  \VerseEndAltTwo_lyrics
+  \Chorus_lyrics
+  \Outro_lyrics
 }
 
 lyricsLineTwo = \lyricmode {
@@ -506,11 +506,11 @@ lyricsLineTwo = \lyricmode {
 
 lyricsUnfolded = \lyricmode {
   \Intro_lyrics
-  \VerseMainA_lyricsOne \VerseMainB_lyrics \VerseEndOne_lyricsOne
-  \VerseMainA_lyricsTwo \VerseMainB_lyrics \VerseEndAltTwo_lyricsOne
-  \Chorus_lyricsOne
+  \VerseMainA_lyricsOne \VerseMainB_lyrics \VerseEndAltOne_lyrics
+  \VerseMainA_lyricsTwo \VerseMainB_lyrics \VerseEndAltTwo_lyrics
+  \Chorus_lyrics
   \VerseMainA_lyricsOne \VerseMainB_lyrics
-  \Outro_lyricsOne
+  \Outro_lyrics
 }
 
 % =====================================================================
@@ -673,7 +673,7 @@ musicStrings = {
 
 
 % =====================================================================
-% 8. OUTPUT COMPILATION
+% 9. OUTPUT COMPILATION
 % =====================================================================
 
 \book {
