@@ -15,6 +15,11 @@ This framework enforces a strict **Separation of Concerns** broken into distinct
 ## 📁 Repository Structure
 
 ```text
-├── template-simple-timeline.ly            # The main LilyPond engine and score blueprint
-├── AI-INSTRUCTIONS.md                     # System prompt to feed LLMs for context-aware development
-└── README.md                              # Project documentation
+├── doc/
+│   └── reference/
+│       └── notation.md                             # Technical notation architecture reference manual
+├── templates/
+│   ├── template-simple-timeline-pop-rock.ly        # Standard roadmap blueprint optimized for pop/rock forms
+│   └── template-timeline-minimal-two-stanzas-lyrics.ly # Minimal layout handling multi-stanza vocal alignments
+├── AI-INSTRUCTIONS.md                              # System prompt to feed LLMs for context-aware development
+└── README.md                                       # Project documentation
