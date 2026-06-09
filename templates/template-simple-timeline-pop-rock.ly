@@ -448,20 +448,20 @@ buildStructuredContent =
 % =====================================================================
 % Note on Routing Tiers: 
 % 1. GLOBAL ROUTING (\toLayout / \toMidi): Manages the Macro output (Print vs. MIDI Playback loop).
-% 2. INTERNAL ROUTING (Below): Acts as a prism for the melody staff. It splits \melodyRaw 
+% 2. INTERNAL ROUTING (Below): Acts as a prism for the melody staff. It splits \melody
 %    into separate Voice/NullVoice streams to handle visual formatting and separate lyrical 
 %    rhythms (Stanza 1 vs Stanza 2) without causing collisions or breaking \lyricsto alignment.
 % =====================================================================
 chordsNames  = \buildStructuredContent "chords" \timeline
 
 % 1. Build the Raw Master Timeline
-melodyRaw    = \buildStructuredContent "melody" \timeline
+melody    = \buildStructuredContent "melody" \timeline
 
 % 2. Extract the specific layers
 % (Keep both 'typeset and 'playback alive here)
-melody          = \removeWithTag #'alignerTrack \removeWithTag #'optionalTrack \melodyRaw
-melody_aligner  = \removeWithTag #'mainTrack \removeWithTag #'optionalTrack \melodyRaw
-melody_optional = \makeSharedNotesSkips \removeWithTag #'mainTrack \removeWithTag #'alignerTrack \melodyRaw
+melody_main          = \removeWithTag #'alignerTrack \removeWithTag #'optionalTrack \melody
+melody_aligner  = \removeWithTag #'mainTrack \removeWithTag #'optionalTrack \melody
+melody_optional = \makeSharedNotesSkips \removeWithTag #'mainTrack \removeWithTag #'alignerTrack \melody
 
 
 pianoRight   = \buildStructuredContent "pianoRight" \timeline
@@ -538,14 +538,14 @@ toMidi = #(define-music-function (mus) (ly:music?)
 % =====================================================================
 
 leadSheetPart = 
-\new ChoirStaff \with {\accepts NullVoice } <<
+\new ChoirStaff = "Lead" \with {\accepts NullVoice } <<
   \new ChordNames \chordsNames
-  \new Staff \with { 
+  \new Staff = "Melody" \with { 
     instrumentName = "Melody" 
     \accepts NullVoice
   } <<
     \global
-    \new Voice = "vocalVoice" { \melody }
+    \new Voice = "vocalVoice" { \melody_main }
     \new Voice = "optionalVoice" { \melody_optional }
     \new NullVoice = "aligner" { \melody_aligner }
   >>
@@ -554,7 +554,7 @@ leadSheetPart =
       \new Lyrics \lyricsto "vocalVoice" { \lyricsLineOne }
     }
     \tag #'typeset {
-      \new Lyrics \with { alignAboveContext = #"Melody" } \lyricsto "aligner" { \lyricsLineTwo }
+      \new Lyrics \lyricsto "aligner" { \lyricsLineTwo }
     }
     \tag #'unfolded {
       \new Lyrics \lyricsto "vocalVoice" { \lyricsUnfolded }
@@ -715,8 +715,16 @@ musicStrings = {
   \bookpart {
     \header { subtitle = "Piano / Vocal Score" }
     \score {
-      { \toLayout \musicPianoVocal }
+      <<
+        { \toLayout \musicPianoVocal }
+        \context Staff = "Melody" {
+          \magnifyStaff #3/5
+          % #(revert-props 'magnifyStaff 0 bar-line-props)
+        }
+      >>
+      \layout { }
     }
+    
     \score {
       \toMidi \musicPianoVocal
       \midi { \tempo 4=120 }
@@ -735,15 +743,16 @@ musicStrings = {
     }
   }
   
-  % --- PART 4: ARRANGEMENT ---
+  % --- PART 5: STRINGS ARRANGEMENT ---
   \bookpart {
     \header { subtitle = "2. String Quartet Arrangement" }
     \score {
-      { \removeWithTag #'unfolded << \new Devnull \timeline \stringSectionPart >> }
+      { \toLayout \stringSectionPart }
       \layout { #(layout-set-staff-size 15) }
     }
   }
   
+  % --- PART 6: CHECKING UNFOLDED MIDI PLAYBACK VISUALLY ---
   \bookpart {
     \header { subtitle = "3. Playback / Unfolded Check" }
     \score {
